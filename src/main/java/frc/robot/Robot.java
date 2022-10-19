@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
     m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
     timer.start();
-    
+    timer.reset();
     System.out.println("autoinit");
     
   }
@@ -104,34 +104,20 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    //Past Code if Needed
     
-    /*switch (m_autoSelected) {
-      case kCustomAuto:
-      double autotime = Timer.getFPGATimestamp();
-      if (autotime - totaltime < 1 ) {
-        robotDrive.arcadeDrive(0.2, 0);
-      } else {
-        robotDrive.arcadeDrive(0, 0);
-      }
-      break;
-      case kDefaultAuto:
-      default:
-      
-      break;
-    }*/
     
-    while(!(timer.hasElapsed(2)))  {
+    if(!(timer.hasElapsed(2)))  {
       
       System.out.println("start motor");
       
       robotDrive.arcadeDrive(0.5, 0);
     } 
+    else{
+      System.out.println("Stop Motors");
     
-    System.out.println("Stop Motors");
-    
-    robotDrive.arcadeDrive(0, 0);
-    System.out.println("AutoPeriod");
+      robotDrive.arcadeDrive(0, 0);
+      System.out.println("AutoPeriod");
+    }
   }
   
   /** This function is called once when teleop is enabled. */
@@ -140,7 +126,9 @@ public class Robot extends TimedRobot {
   
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    robotDrive.arcadeDrive(controller.getLeftY(), controller.getRightX());
+  }
   
   /** This function is called once when the robot is disabled. */
   @Override
