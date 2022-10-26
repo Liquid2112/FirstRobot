@@ -45,12 +45,16 @@ public class Robot extends TimedRobot {
     public double motorSpeed = 0;
     public boolean ifCoast = false;
     public boolean donut = false;
-
+    
     public final String IN_COAST = "inCoast";
-
     public final String MOTOR_SPEED_SD = "Leftmotor";
-
     public final String DONUT = "Donut";
+    
+    enum AutoStates {
+        FORWARD, OFF, TURN_90_LEFT
+    };
+
+    AutoStates state = AutoStates.FORWARD;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -141,11 +145,6 @@ public class Robot extends TimedRobot {
 
     }
 
-    enum AutoStates {
-        FORWARD, OFF, TURN_90_LEFT
-    };
-
-    AutoStates state = AutoStates.FORWARD;
 
     /** This function is called periodically during autonomous. */
     @Override
@@ -174,84 +173,6 @@ public class Robot extends TimedRobot {
             }
         }
     }
-    /*
-     * if (state == AutoStates.ONHALF) {
-     * robotDrive.arcadeDrive(motorSpeed * .5, 0);
-     * 
-     * if (timer.get() > 2) {
-     * timer.reset();
-     * state = AutoStates.ON;
-     * }
-     * }
-     * 
-     * if (state == AutoStates.ON) {
-     * 
-     * robotDrive.arcadeDrive(motorSpeed, 0);
-     * 
-     * 
-     * if (timer.get() > 3) {
-     * timer.reset();
-     * state = AutoStates.OFF;
-     * }
-     */
-
-    /*
-     * for(int i = 0; i <= 4; i++) {
-     * if(!(timer.hasElapsed(5))) {
-     * 
-     * System.out.println("start motor");
-     * 
-     * robotDrive.arcadeDrive(0.5, 0);
-     * }
-     * else{
-     * System.out.println("Stop Motors");
-     * 
-     * robotDrive.arcadeDrive(0, 0);
-     * System.out.println("AutoPeriod");
-     * 
-     * }
-     * timer.reset();
-     * 
-     * if(!(timer.hasElapsed(2))) {
-     * robotDrive.tankDrive(0.3, -1 * 0.3);
-     * 
-     * } else {
-     * robotDrive.tankDrive(0, 0);
-     * }
-     * }
-     */
-
-    /*
-     * 
-     * 
-     * double roundedTimer = Math.floor(timer.get());
-     * 
-     * boolean isEven = roundedTimer % 2 == 0;
-     * System.out.println(leftLeader.get());
-     * System.out.println(rightLeader.get());
-     * 
-     * if(isEven) {
-     * 
-     * //System.out.println("start motor");
-     * 
-     * robotDrive.arcadeDrive(motorSpeed, 0);
-     * 
-     * } else {
-     * 
-     * //System.out.println("Stop Motors");
-     * 
-     * robotDrive.arcadeDrive(0, 0);
-     * //System.out.println("AutoPeriod");
-     * 
-     * 
-     * if(donut) {
-     * 
-     * robotDrive.tankDrive(motorSpeed, -1 * motorSpeed);
-     * 
-     * } else {
-     * robotDrive.tankDrive(motorSpeed, motorSpeed);
-     * }
-     */
 
     /** This function is called once when teleop is enabled. */
     @Override
